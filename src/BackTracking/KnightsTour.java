@@ -28,53 +28,52 @@ import java.util.Arrays;
  */
 public class KnightsTour {
 	public static int solutionsCount = 0;
-	
+
 	public static void main(String[] args) {
 		// int max = 15;
 		int n = 5;
 
 		// FIND ALL SOLUTIONS
-		// for(int n = 1; n <= max; n++) { 
-			// This is for timing the solutions of 1 -> n board
-			int[][] knightsMatrix = new int[n][n];
-			for (int[] row : knightsMatrix) {
-				Arrays.fill(row, -1);
-			}
-			knightsMatrix[0][0] = 0;			// starting knight position
-			long start = System.currentTimeMillis();
-			KnightsTourBacktrackingExponentialTimeAllSolutions(knightsMatrix, n);
-			long end = System.currentTimeMillis();
-			System.out.println("# Solutions: " + solutionsCount + " for n = " + n + " took " + (end - start) + "ms");
-			solutionsCount = 0; // reset the solutions count
+		// for(int n = 1; n <= max; n++) {
+		// This is for timing the solutions of 1 -> n board
+		int[][] knightsMatrix = new int[n][n];
+		for (int[] row : knightsMatrix) {
+			Arrays.fill(row, -1);
+		}
+		knightsMatrix[0][0] = 0; // starting knight position
+		long start = System.currentTimeMillis();
+		KnightsTourBacktrackingExponentialTimeAllSolutions(knightsMatrix, n);
+		long end = System.currentTimeMillis();
+		System.out.println("# Solutions: " + solutionsCount + " for n = " + n + " took " + (end - start) + "ms");
+		solutionsCount = 0; // reset the solutions count
 		// }
 
 		// FIND ONE SOLUTION
-		// for(int n = 1; n <= max; n++) { 
-			// This is for timing the solutions of 1 -> n board
-			for (int[] row : knightsMatrix) {
-				Arrays.fill(row, -1);
-			}
-			knightsMatrix[0][0] = 0;
-			start = System.currentTimeMillis();
-			KnightsTourBacktrackingExponentialTimeOneSolution(knightsMatrix, n);
-			end = System.currentTimeMillis();
-			System.out.println("# Solutions: " + solutionsCount + " for n = " + n + " took " + (end - start) + "ms");
-			solutionsCount = 0; // reset the solutions count
+		// for(int n = 1; n <= max; n++) {
+		// This is for timing the solutions of 1 -> n board
+		for (int[] row : knightsMatrix) {
+			Arrays.fill(row, -1);
+		}
+		knightsMatrix[0][0] = 0;
+		start = System.currentTimeMillis();
+		KnightsTourBacktrackingExponentialTimeOneSolution(knightsMatrix, n);
+		end = System.currentTimeMillis();
+		System.out.println("# Solutions: " + solutionsCount + " for n = " + n + " took " + (end - start) + "ms");
+		solutionsCount = 0; // reset the solutions count
 		// }
-			
-			
+
 		// FIND ONE SOLUTION -- Non redundant code
-			// for(int n = 1; n <= max; n++) { 
-				// This is for timing the solutions of 1 -> n board
-				for (int[] row : knightsMatrix) {
-					Arrays.fill(row, -1);
-				}
-				knightsMatrix[0][0] = 0;
-				start = System.currentTimeMillis();
-				KnightsTourBacktrackingExponentialTimeOneSolutionNonRedundant(knightsMatrix, n);
-				end = System.currentTimeMillis();
-				System.out.println("# Solutions: " + solutionsCount + " for n = " + n + " took " + (end - start) + "ms");
-				solutionsCount = 0; // reset the solutions count
+		// for(int n = 1; n <= max; n++) {
+		// This is for timing the solutions of 1 -> n board
+		for (int[] row : knightsMatrix) {
+			Arrays.fill(row, -1);
+		}
+		knightsMatrix[0][0] = 0;
+		start = System.currentTimeMillis();
+		KnightsTourBacktrackingExponentialTimeOneSolutionNonRedundant(knightsMatrix, n);
+		end = System.currentTimeMillis();
+		System.out.println("# Solutions: " + solutionsCount + " for n = " + n + " took " + (end - start) + "ms");
+		solutionsCount = 0; // reset the solutions count
 		// }
 	}
 
@@ -85,23 +84,23 @@ public class KnightsTour {
 	public static void KnightsTourBacktrackingExponentialTimeOneSolution(int[][] knightsMatrix, int n) {
 		KnightsTourHelperExponentialTimeOneSolutionREDUNDANTCODE(0, 0, knightsMatrix, n, 1);
 	}
-	
+
 	public static void KnightsTourBacktrackingExponentialTimeOneSolutionNonRedundant(int[][] knightsMatrix, int n) {
-	  // Defines the next L shaped move of Knight, 8 in total possible
-      int xMove[] = {2, 1, -1, -2, -2, -1, 1, 2};		// Row X position
-      int yMove[] = {1, 2, 2, 1, -1, -2, -2, -1};		// Col Y position
-	  KnightsTourHelperExponentialTimeOneSolutionNONREDUNDANTCode(0, 0, knightsMatrix, n, 1, xMove, yMove);
+		// Defines the next L shaped move of Knight, 8 in total possible
+		int xMove[] = { 2, 1, -1, -2, -2, -1, 1, 2 }; // Row X position
+		int yMove[] = { 1, 2, 2, 1, -1, -2, -2, -1 }; // Col Y position
+		KnightsTourHelperExponentialTimeOneSolutionNONREDUNDANTCode(0, 0, knightsMatrix, n, 1, xMove, yMove);
 	}
-	
-	
-	public static boolean KnightsTourHelperExponentialTimeOneSolutionNONREDUNDANTCode(int row, int col, int[][] knightsMatrix, int n,
-			int move, int[] xMove, int[] yMove) {
+
+	public static boolean KnightsTourHelperExponentialTimeOneSolutionNONREDUNDANTCode(int row, int col,
+			int[][] knightsMatrix, int n, int move, int[] xMove, int[] yMove) {
 		int rows = n;
 		int cols = n;
 
 		// Check if the knights board is finished AND Print solution
-		// WHEN WE have placed the last piece n*n - 1, if move == n*n, then we are finished
-		if (move == n * n) { 
+		// WHEN WE have placed the last piece n*n - 1, if move == n*n, then we
+		// are finished
+		if (move == n * n) {
 			System.out.println("Solution Found: ");
 			for (int i = 0; i < rows; i++) {
 				for (int j = 0; j < cols; j++) {
@@ -113,23 +112,24 @@ public class KnightsTour {
 			return true;
 		}
 
-		// Check all 8 different moves 
+		// Check all 8 different moves
 		// Check if it is "safe" to place the Knight at position(i,j)
 		// If it is, place it and recurse with that position and move + 1
 		// After recurs, backtrack and remove the knight at that position = -1
-			// Return true if there was a solution to stop
+		// Return true if there was a solution to stop
 		int nextMoveX = 0;
 		int nextMoveY = 0;
 		for (int i = 0; i < 8; i++) {
-			nextMoveX = xMove[i] + row;			// Get the next move from the move matrix
+			nextMoveX = xMove[i] + row; // Get the next move from the move
+										// matrix
 			nextMoveY = yMove[i] + col;
 			if (isSafeToPlaceKnight(nextMoveX, nextMoveY, knightsMatrix, n)) {
 				knightsMatrix[nextMoveX][nextMoveY] = move;
 				if (KnightsTourHelperExponentialTimeOneSolutionNONREDUNDANTCode(nextMoveX, nextMoveY, knightsMatrix, n,
 						move + 1, xMove, yMove)) {
-					return true;								// Return one solution
+					return true; // Return one solution
 				} else {
-					knightsMatrix[nextMoveX][nextMoveY] = -1; 	// Back Track
+					knightsMatrix[nextMoveX][nextMoveY] = -1; // Back Track
 				}
 			}
 		}
@@ -137,15 +137,15 @@ public class KnightsTour {
 		return false; // THERE was no solution found
 	}
 
-
-	public static boolean KnightsTourHelperExponentialTimeOneSolutionREDUNDANTCODE(int row, int col, int[][] knightsMatrix, int n,
-			int move) {
+	public static boolean KnightsTourHelperExponentialTimeOneSolutionREDUNDANTCODE(int row, int col,
+			int[][] knightsMatrix, int n, int move) {
 		int rows = n;
 		int cols = n;
 
 		// Check if the knights board is finished AND Print solution
-		// WHEN WE have placed the last piece n*n - 1, if move == n*n, then we are finished
-		if (move == n * n) { 
+		// WHEN WE have placed the last piece n*n - 1, if move == n*n, then we
+		// are finished
+		if (move == n * n) {
 			System.out.println("Solution Found: ");
 			for (int i = 0; i < rows; i++) {
 				for (int j = 0; j < cols; j++) {
@@ -157,16 +157,18 @@ public class KnightsTour {
 			return true;
 		}
 
-		// Check all 8 different combinations (notice IF, not IF/ELSE , to explore all 8 moves
+		// Check all 8 different combinations (notice IF, not IF/ELSE , to
+		// explore all 8 moves
 		// Check if it is "safe" to place the Knight at position(i,j)
 		// If it is, place it and recurse with that position and move + 1
 		// After recurs, backtrack and remove the knight at that position = -1
-			// Return true if there was a solution to stop
+		// Return true if there was a solution to stop
 		if (row > 0 && col < n - 2 && knightsMatrix[row - 1][col + 2] == -1) {
 			// Place the Knight
 			knightsMatrix[row - 1][col + 2] = move;
 			// Recurse to next row to explore possible solutions
-			if (KnightsTourHelperExponentialTimeOneSolutionREDUNDANTCODE(row - 1, col + 2, knightsMatrix, n, move + 1)) { 
+			if (KnightsTourHelperExponentialTimeOneSolutionREDUNDANTCODE(row - 1, col + 2, knightsMatrix, n,
+					move + 1)) {
 				return true;
 			} else {
 				// BackTrack
@@ -175,7 +177,8 @@ public class KnightsTour {
 		}
 		if (row > 0 && col > 1 && knightsMatrix[row - 1][col - 2] == -1) {
 			knightsMatrix[row - 1][col - 2] = move;
-			if (KnightsTourHelperExponentialTimeOneSolutionREDUNDANTCODE(row - 1, col - 2, knightsMatrix, n, move + 1)) {
+			if (KnightsTourHelperExponentialTimeOneSolutionREDUNDANTCODE(row - 1, col - 2, knightsMatrix, n,
+					move + 1)) {
 				return true;
 			} else {
 				knightsMatrix[row - 1][col - 2] = -1;
@@ -183,7 +186,8 @@ public class KnightsTour {
 		}
 		if (row > 1 && col > 1 && knightsMatrix[row - 2][col - 1] == -1) {
 			knightsMatrix[row - 2][col - 1] = move;
-			if (KnightsTourHelperExponentialTimeOneSolutionREDUNDANTCODE(row - 2, col - 1, knightsMatrix, n, move + 1)) {
+			if (KnightsTourHelperExponentialTimeOneSolutionREDUNDANTCODE(row - 2, col - 1, knightsMatrix, n,
+					move + 1)) {
 				return true;
 			} else {
 				knightsMatrix[row - 2][col - 1] = -1;
@@ -191,7 +195,8 @@ public class KnightsTour {
 		}
 		if (row > 1 && col < n - 1 && knightsMatrix[row - 2][col + 1] == -1) {
 			knightsMatrix[row - 2][col + 1] = move;
-			if (KnightsTourHelperExponentialTimeOneSolutionREDUNDANTCODE(row - 2, col + 1, knightsMatrix, n, move + 1)) {
+			if (KnightsTourHelperExponentialTimeOneSolutionREDUNDANTCODE(row - 2, col + 1, knightsMatrix, n,
+					move + 1)) {
 				return true;
 			} else {
 				knightsMatrix[row - 2][col + 1] = -1;
@@ -199,7 +204,8 @@ public class KnightsTour {
 		}
 		if (row < n - 1 && col < n - 2 && knightsMatrix[row + 1][col + 2] == -1) {
 			knightsMatrix[row + 1][col + 2] = move;
-			if (KnightsTourHelperExponentialTimeOneSolutionREDUNDANTCODE(row + 1, col + 2, knightsMatrix, n, move + 1)) {
+			if (KnightsTourHelperExponentialTimeOneSolutionREDUNDANTCODE(row + 1, col + 2, knightsMatrix, n,
+					move + 1)) {
 				return true;
 			} else {
 				knightsMatrix[row + 1][col + 2] = -1;
@@ -207,7 +213,8 @@ public class KnightsTour {
 		}
 		if (row < n - 1 && col > 1 && knightsMatrix[row + 1][col - 2] == -1) {
 			knightsMatrix[row + 1][col - 2] = move;
-			if (KnightsTourHelperExponentialTimeOneSolutionREDUNDANTCODE(row + 1, col - 2, knightsMatrix, n, move + 1)) {
+			if (KnightsTourHelperExponentialTimeOneSolutionREDUNDANTCODE(row + 1, col - 2, knightsMatrix, n,
+					move + 1)) {
 				return true;
 			} else {
 				knightsMatrix[row + 1][col - 2] = -1;
@@ -215,7 +222,8 @@ public class KnightsTour {
 		}
 		if (row < n - 2 && col < n - 1 && knightsMatrix[row + 2][col + 1] == -1) {
 			knightsMatrix[row + 2][col + 1] = move;
-			if (KnightsTourHelperExponentialTimeOneSolutionREDUNDANTCODE(row + 2, col + 1, knightsMatrix, n, move + 1)) {
+			if (KnightsTourHelperExponentialTimeOneSolutionREDUNDANTCODE(row + 2, col + 1, knightsMatrix, n,
+					move + 1)) {
 				return true;
 			} else {
 				knightsMatrix[row + 2][col + 1] = -1;
@@ -223,7 +231,8 @@ public class KnightsTour {
 		}
 		if (row < n - 2 && col > 0 && knightsMatrix[row + 2][col - 1] == -1) {
 			knightsMatrix[row + 2][col - 1] = move;
-			if (KnightsTourHelperExponentialTimeOneSolutionREDUNDANTCODE(row + 2, col - 1, knightsMatrix, n, move + 1)) {
+			if (KnightsTourHelperExponentialTimeOneSolutionREDUNDANTCODE(row + 2, col - 1, knightsMatrix, n,
+					move + 1)) {
 				return true;
 			} else {
 				knightsMatrix[row + 2][col - 1] = -1;
@@ -233,13 +242,15 @@ public class KnightsTour {
 		return false; // THERE was no solution found
 	}
 
-	public static void KnightsTourHelperExponentialTimeAllSolutionsREDUNDANTCODE(int row, int col, int[][] knightsMatrix, int n, int move) {
+	public static void KnightsTourHelperExponentialTimeAllSolutionsREDUNDANTCODE(int row, int col,
+			int[][] knightsMatrix, int n, int move) {
 		int rows = n;
 		int cols = n;
 
 		// Check if the knights board is finished AND Print solution
-		if (move == n * n) { 
-			// WHEN WE have placed the last piece n*n - 1, if move == n*n, then we are finished
+		if (move == n * n) {
+			// WHEN WE have placed the last piece n*n - 1, if move == n*n, then
+			// we are finished
 			System.out.println("Solution Found: ");
 			for (int i = 0; i < rows; i++) {
 				for (int j = 0; j < cols; j++) {
@@ -260,9 +271,9 @@ public class KnightsTour {
 			// Place the Knight
 			knightsMatrix[row - 1][col + 2] = move;
 			// Recurse to next row to explore possible solutions
-			KnightsTourHelperExponentialTimeAllSolutionsREDUNDANTCODE(row - 1, col + 2, knightsMatrix, n, move + 1); 
+			KnightsTourHelperExponentialTimeAllSolutionsREDUNDANTCODE(row - 1, col + 2, knightsMatrix, n, move + 1);
 			// BackTrack
-			knightsMatrix[row - 1][col + 2] = -1; 			
+			knightsMatrix[row - 1][col + 2] = -1;
 		}
 		if (row > 0 && col > 1 && knightsMatrix[row - 1][col - 2] == -1) {
 			knightsMatrix[row - 1][col - 2] = move;
@@ -325,7 +336,7 @@ public class KnightsTour {
 
 	public static boolean isSafeToPlaceKnight(int row, int col, int[][] knightsMatrix, int n) {
 		// empty (-1) and in bounds of grid is safe, else not safe
-		return row >= 0 && row < n && col >=0 && col < n && knightsMatrix[row][col] == -1;
+		return row >= 0 && row < n && col >= 0 && col < n && knightsMatrix[row][col] == -1;
 	}
 
 }
