@@ -1,12 +1,15 @@
 package BitManipulation;
 
+/*
+ * Add two numbers without using the + operator
+ */
 public class AddingNumbers {
 
 	public static void main(String[] args) {
-
-		System.out.println(getSum(1,2));
+		int a = 1;
+		int b = 2;
+		System.out.println(getSum(a,b));
 	}
-
 	
     public static int getSum(int a, int b) {
         // XOR = sum of two numbers without the carry
