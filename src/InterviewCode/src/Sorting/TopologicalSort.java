@@ -3,8 +3,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 
 import Utils.Graph;
@@ -19,7 +21,7 @@ import Utils.Graph.Vertex;
  * Time: O(Vertexes) + O(Edges)
  * 
  * 
- * DFS Implementation -->  TBC
+ * DFS Implementation -->  TBD
  */
 public class TopologicalSort {
 
@@ -34,7 +36,7 @@ public class TopologicalSort {
 		
 		gp.addEdge("B", "D", 2);
 		gp.addEdge("X", "D", 2);
-		// gp.addEdge("D", "X", 2); // Cyclic edge for testing
+		//gp.addEdge("D", "X", 2); // Cyclic edge for testing
 
 		System.out.println(gp.toString());
 
@@ -54,17 +56,19 @@ public class TopologicalSort {
 			return topoSorted;
 		}
 
-		// Store the Vertex in-degrees(# of incoming edges), should be empty at
-		// end
+		// Store the Vertex in-degrees(# of incoming edges) for non-zero
+		// Keep track of the independent Vertexes
+		// vertexesAndDegrees should be empty at end
 		// Time: O(Vertexes)
-		Map<Vertex, Integer> allVertexesAndDegrees = new HashMap<Vertex, Integer>();
+		Map<Vertex, Integer> vertexesAndDegrees = new HashMap<Vertex, Integer>();
+		Set<Vertex> independentVertexes  = new HashSet<Vertex>();
 		for (Vertex x : gp.getAllVertexes()) {
-			allVertexesAndDegrees.put(x, x.getInDegree());
+			if (x.getInDegree() == 0) {
+				independentVertexes.add(x);			
+			} else {
+				vertexesAndDegrees.put(x, x.getInDegree());
+			}
 		}
-
-		// Get the First independent Vertexes and Remove them from In-degree Map
-		// Time: O(Vertexes)
-		Set<Vertex> independentVertexes = getAndRemoveIndependentVertexes(allVertexesAndDegrees);
 
 		/* Print independent vertexes out to verify in beginning
 		System.out.println("Initial Independent Vertex(es)");
@@ -88,26 +92,26 @@ public class TopologicalSort {
 
 			// Visit all its neighbors and remove the dependent edge
 			for (Vertex m : visited.getAllAdjacentVertexes().keySet()) {
-				int currentInDegree = allVertexesAndDegrees.get(m);
+				int currentInDegree = vertexesAndDegrees.get(m);
 				if (currentInDegree - 1 <= 0) {
 					// No more edges, Remove the Vertex and add to independent
 					// Set
-					allVertexesAndDegrees.remove(m);
+					vertexesAndDegrees.remove(m);
 					independentVertexes.add(m);
 				} else {
 					// "Remove" or reduce the edge-in degree
-					allVertexesAndDegrees.put(m, currentInDegree - 1);
+					vertexesAndDegrees.put(m, currentInDegree - 1);
 				}
 			}
 		}
 
 		// At the end now, so the graph(map) should be "empty" of any edges
 		// Time: O(1)
-		if (!allVertexesAndDegrees.isEmpty()) {
+		if (!vertexesAndDegrees.isEmpty()) {
 			System.out.println(
 					"Could not create topo sort, edges remaining. Topo sort must use directed acyclic graph (DAG).");
-			for (Vertex x : allVertexesAndDegrees.keySet()) {
-				System.out.println(x.getLabel() + " Indegree remaining: " + allVertexesAndDegrees.get(x));
+			for (Vertex x : vertexesAndDegrees.keySet()) {
+				System.out.println(x.getLabel() + " Indegree remaining: " + vertexesAndDegrees.get(x));
 			}
 			return new ArrayList<Vertex>();
 		}
@@ -115,6 +119,10 @@ public class TopologicalSort {
 		return topoSorted;
 	}
 
+	/* 
+	 * Method not needed since we can add to IndependentVertexes Set at time of 
+	 * 
+	 
 	public Set<Vertex> getAndRemoveIndependentVertexes(Map<Vertex, Integer> allVertexesAndDegrees) {
 		// Time: O(Vertexes)
 		if (allVertexesAndDegrees == null) {
@@ -133,5 +141,6 @@ public class TopologicalSort {
 		}
 		return independentVertexes;
 	}
+	*/
 
 }
