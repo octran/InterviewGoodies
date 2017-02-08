@@ -1,5 +1,7 @@
 
-#Welcome to my code repository for solving coding interview questions in Java!
+#InterviewGoodies
+
+Welcome to my code repository for solving coding interview questions in Java!
 
 I am continually learning new topics and ways to solve problems, so I figured coding them out and adding them to git will hopefully help me retain the knowledge I have learned and possibly help someone else also. If anything, I can always look back and see the solution :).
 
