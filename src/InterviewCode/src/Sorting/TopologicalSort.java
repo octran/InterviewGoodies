@@ -21,7 +21,7 @@ import Utils.Graph.Vertex;
  * Time: O(Vertexes) + O(Edges)
  * 
  * 
- * DFS Implementation -->  TBD
+ * DFS Implementation --> TBD
  */
 public class TopologicalSort {
 
