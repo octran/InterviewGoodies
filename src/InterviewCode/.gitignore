@@ -7,7 +7,7 @@ build/
 /bin/
 /out
 target/
-
+*.class
 *.war
 *.exe
 *.jar
