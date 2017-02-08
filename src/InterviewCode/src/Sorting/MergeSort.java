@@ -89,12 +89,12 @@ public class MergeSort {
 		// While both arrays are less than their last index, sort them
 		while (i <= mid && j <= right) {
 			if (arr[i] <= arr[j]) {
-				// A[i] >= B[i], copy to temp
+				// A[i] <= B[j], copy A[i] to temp
 				tempArr[k] = arr[i];
 				i++;
 				k++;
 			} else {
-				// A[i] < B[i], copy to temp
+				// A[i] > B[j], copy B[j] to temp
 				tempArr[k] = arr[j];
 				j++;
 				k++;
