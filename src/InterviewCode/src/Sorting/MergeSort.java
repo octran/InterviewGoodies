@@ -44,7 +44,7 @@ public class MergeSort {
 		
 		// BottomUp
 		int[] inputArr2 = {45, 23, 11, 89, 77, 98, 4, 28, 65, 43, -100, -100, -100 };
-		mergeSortBottomUp(inputArr, new int[inputArr2.length]);
+		mergeSortBottomUp(inputArr2, new int[inputArr2.length]);
 
 		System.out.print("Final Sorted Array BottomUp: ");
 		for (int i : inputArr2) {
@@ -91,22 +91,26 @@ public class MergeSort {
 			if (arr[i] <= arr[j]) {
 				// A[i] <= B[j], copy A[i] to temp
 				tempArr[k] = arr[i];
-				i++;
 				k++;
+				i++;
 			} else {
 				// A[i] > B[j], copy B[j] to temp
 				tempArr[k] = arr[j];
-				j++;
 				k++;
+				j++;
 			}
 		}
 
 		// Fill in any remaining of the arrays to temp
 		while (i <= mid) {
-			tempArr[k++] = arr[i++];
+			tempArr[k] = arr[i];
+			k++;
+			i++;
 		}
 		while (j <= right) {
-			tempArr[k++] = arr[j++];
+			tempArr[k] = arr[j];
+			k++;
+			j++;
 		}
 
 		System.out.print("Temp Array ");
